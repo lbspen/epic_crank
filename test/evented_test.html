@@ -1,0 +1,44 @@
+<html>
+<head>
+  <title>Evented Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="../src/Class.js"></script>
+  <script src="../src/Evented.js"></script>
+</head>
+<body>
+
+<script>
+  var Scene = Engine.Evented.extend({
+    name: "Scene",
+    speak: function() { console.log( "I'm the scene"); }
+  });
+
+  var scene = new Scene();
+
+  var Player = Engine.Evented.extend({
+    speak: function() { console.log( "I'm the player" ); },
+    start: function() { console.log( "I'm starting" ); }
+  });
+
+  var player = new Player();
+
+  scene.bind( 'speak', function() {
+    this.speak();
+  }, player );
+
+  scene.bind( 'start', 'start', player );
+
+  scene.trigger( 'speak' );
+  scene.trigger( 'start' );
+
+  scene.unbind( 'start' );
+  scene.trigger( 'start' );
+
+  player.debind();
+  scene.trigger( 'speak' );
+
+</script>
+
+</body>
+</html>

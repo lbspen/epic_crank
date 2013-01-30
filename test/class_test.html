@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>Class Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="../src/Class.js"></script>
+</head>
+<body>
+  <script>
+    var Person = Class.extend({
+      name: 'Person',
+      init: function() { console.log('Created Person'); },
+      speak: function() { console.log('Person Speaking:'); }
+    });
+
+    var p = new Person();
+    p.speak();
+
+    var Guy = Person.extend({
+      name: 'Guy',
+      init: function() { this._super(); console.log('Created Guy'); },
+      speak: function() { this._super(); console.log("I'm a Guy!"); }
+    });
+
+    var bob = new Guy();
+    bob.speak();
+
+    var Girl = Person.extend({
+      name: 'Girl',
+      init: function() { console.log('Created Girl'); },
+      speak: function() { console.log("I'm a Girl!"); }
+    });
+
+    var jill = new Girl();
+    jill.speak();
+
+  </script>
+
+</body>
+</html>

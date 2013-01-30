@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>GameLoop Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="../src/Engine.js"></script>
+</head>
+<body>
+  <div id='timer'>0</div>
+  <div id="fps">0</div>
+  <button id="pause">Pause</button>
+  <button id="unpause">Unpause</button>
+  <script>
+    var TimerTest = new Engine();
+
+    var totalFrames = 0,
+        totalTime = 0;
+
+    TimerTest.setGameLoop( function( dt ) {
+      totalTime += dt;
+      totalFrames += 1;
+      $("#timer").text( Math.round( totalTime * 1000 ) + " ms" );
+      $("#fps").text( Math.round( totalFrames / totalTime ) + " fps");
+    });
+
+    $('#pause').on( 'click', TimerTest.pauseGame );
+  </script>
+</body>
+</html>
