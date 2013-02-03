@@ -77,6 +77,7 @@ Engine = (function() {
         this.$el.css({ width: w, height: h })
             .attr({ width: w, height: h });
 
+        //noinspection JSUnusedGlobalSymbols
         /**
          * Div that surrounds the drawing object. Will have id of
          * param id + "_container"
@@ -131,17 +132,44 @@ Engine = (function() {
      * @constructor
      * @return {*}
      */
-    var engineDefinition = function() {
+    var engineDefinition = function( options ) {
 
         if( !(this instanceof Engine) ) {
             return new Engine();
         }
 
         /**
+         * Extendable configuration options
+         * @type {Object} defaults include imagePath, audioPath, audioSupported and sound
+         */
+        this.options = {
+            imagePath: "images/",
+            audioPath: "audio/",
+            audioSupported: [ 'mp3', 'ogg' ],
+            sound: true
+        };
+
+        // Extend the default options with any in the options param
+        if (options) { _(this.options).extend( options ); }
+
+        /**
          * Name/Object pairs for each registered component
          * @type {Object}
          */
         this.components = {};
+
+        /**
+         * String/boolean pairs. The key is the name of an action and the boolean is true
+         * if the action is active.
+         * @type {Object}
+         */
+        this.currentInputs = {};
+
+        /**
+         * String/Object pairs. The key is the name of the asset and the Object is the asset object
+         * @type {Object}
+         */
+        this.assets = {};
 
         // Support for multiple inheritence
 //        _instanceIdentifier += 1;

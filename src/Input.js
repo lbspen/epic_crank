@@ -26,13 +26,6 @@ Engine.Input = function() {
         keyboardEnabled: false,
 
         /**
-         * String/boolean pairs. The key is the name of an action and the boolean is true
-         * if the action is active.
-         * @type {Object}
-         */
-        currentInputs: {},
-
-        /**
          * Binds a key code to an action
          * @param {number} key Element of KEY_NAMES or some other keycode
          * @param {string} name Name of the action
@@ -72,7 +65,7 @@ Engine.Input = function() {
 
                     if (inputSystem.keys[ e.keyCode ]) {
                         var actionName = inputSystem.keys[ e.keyCode ];
-                        inputSystem.currentInputs[ actionName ] = true;
+                        engine.currentInputs[ actionName ] = true;
                         inputSystem.trigger( actionName );
                         inputSystem.trigger( 'keydown', e.keyCode );
                     }
@@ -83,7 +76,7 @@ Engine.Input = function() {
 
                     if (inputSystem.keys[ e.keyCode ]) {
                         var actionName = inputSystem.keys[ e.keyCode ];
-                        inputSystem.currentInputs[ actionName ] = true;
+                        engine.currentInputs[ actionName ] = true;
                         inputSystem.trigger( actionName + "Up" );
                         inputSystem.trigger( 'keyup', e.keyCode );
                     }

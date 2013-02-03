@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Asset Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="../src/Engine.js"></script>
+  <script src="../src/Assets.js"></script>
+</head>
+<body>
+  <script>
+    var engine = new Engine({ audioSupported: [ 'wav','ogg' ],
+      audioPath: '../test/audio/',
+      imagePath: '../test/images/' })
+      .setup();
+    engine.addPreload( 'sprites.png' );
+    engine.addPreload([ 'fire.mp3', 'explosion.mp3']);
+    engine.preload( function() {
+      alert("All preloaded!");
+    });
+    engine.load([ 'sprites.png', 'correct.ogg' ], function() {
+      alert('Everything loaded');
+      console.log(engine.assets);
+    });
+  </script>
+</body>
+</html>
