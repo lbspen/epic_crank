@@ -1,7 +1,7 @@
 var Engine = Engine || {};
 
 Engine.Evented = Class.extend({
-    name: "Evented",
+    className: "Evented",
 
     /**
      * Adds a listener to a specific event that triggers a callback

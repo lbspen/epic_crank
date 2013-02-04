@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Sprites Test</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script src="http://underscorejs.org/underscore-min.js"></script>
+  <script src="../src/Engine.js"></script>
+  <script src="../src/Class.js"></script>
+  <script src="../src/Assets.js"></script>
+  <script src="../src/Sprites.js"></script>
+</head>
+<body>
+  <script>
+    var engine = new Engine({
+        dataPath: '../test/data/',
+        imagePath: '../test/images/'
+    });
+    engine.include("Sprites");
+    engine.setup();
+    engine.load([ 'sprites.png', 'sprites.json' ], function() {
+
+      engine.compileSheets( 'sprites.png', 'sprites.json' );
+      var slowDown = 4,
+        frame1 = 0,
+        frame2 = 0;
+
+      engine.setGameLoop( function() {
+        engine.clear();
+
+        var sheet1 = engine.getSheet( 'man' );
+        sheet1.draw( engine.ctx, 50, 50, Math.floor( frame1 / slowDown ));
+        frame1 = ( frame1 + 1 ) % ( sheet1.frames * slowDown );
+
+        var sheet2 = engine.getSheet( 'blob' );
+        sheet2.draw( engine.ctx, 150, 50, Math.floor( frame2 / slowDown ));
+        frame2 = ( frame2 + 1 ) % ( sheet2.frames * slowDown );
+      });
+    });
+  </script>
+</body>
+</html>

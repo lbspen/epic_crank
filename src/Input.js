@@ -16,7 +16,7 @@ Engine.Input = function() {
      */
     Engine.InputSystem = Engine.Evented.extend({
 
-        name: "InputSystem",
+        className: "InputSystem",
 
         /**
          * Keycode / action name pairs

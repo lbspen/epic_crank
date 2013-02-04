@@ -2,7 +2,7 @@ var Engine = Engine || {};
 
 Engine.Entity = Engine.Evented.extend({
 
-    name: "Entity",
+    className: "Entity",
 
     /**
      *

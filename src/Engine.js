@@ -95,7 +95,7 @@ Engine = (function() {
          * 2d context
          * @type {CanvasRenderingContext2D}
          */
-        this.ctx = this.$el[ 0 ].getContext() &&
+        this.ctx = this.$el[ 0 ].getContext &&
             this.$el[ 0 ].getContext( '2d' );
 
         /**
@@ -145,6 +145,7 @@ Engine = (function() {
         this.options = {
             imagePath: "images/",
             audioPath: "audio/",
+            dataPath: "data/",
             audioSupported: [ 'mp3', 'ogg' ],
             sound: true
         };

@@ -1,0 +1,20 @@
+{"frames": [
+
+{
+	"filename": "ninjaClimbingSS.png",
+	"frame": {"x":2,"y":2,"w":696,"h":540},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":696,"h":540},
+	"sourceSize": {"w":696,"h":540}
+}],
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "ninjaClimbingArray.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":1024},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:2c3118f0492dc433dfafd89b6ede3b48$"
+}
+}

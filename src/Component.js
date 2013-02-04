@@ -2,7 +2,7 @@ var Engine = Engine || {};
 
 Engine.Component = Engine.Evented.extend({
 
-    name: "Component",
+    className: "Component",
     /**
      * Connects this Component to an Entity
      * @param {Engine.Entity} entity Component will be used by this Entity

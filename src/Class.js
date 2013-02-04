@@ -68,7 +68,7 @@
 
         // Modify the name of the class and the constructor so that all objects
         // are not named "Class" in the debugger
-        properties.name = properties.name || "ChildOf" + this.name;
+        properties.className = properties.className || "ChildOf" + this.className;
 
         /**
          * Wrapper for init
@@ -82,7 +82,7 @@
         }
 
         var func = new Function("action", "return function " +
-            properties.name + "(){ action.apply(this, arguments) };")( customAction );
+            properties.className + "(){ action.apply(this, arguments) };")( customAction );
 
         // Populate our constructed prototype object
         func.prototype = prototype;

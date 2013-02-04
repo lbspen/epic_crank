@@ -36,6 +36,7 @@ Engine.getAssetType = function( asset ) {
     return Engine.assetTypes[ fileExtension ] || 'Other';
 };
 
+//noinspection JSUnusedGlobalSymbols
 /**
  * Loads an image
  * @param {String} key Name of image
@@ -50,9 +51,10 @@ Engine.prototype.loadAssetImage = function( key, src, callback, errorCallback ) 
     img.src = this.options.imagePath + src;
 };
 
+//noinspection JSUnusedGlobalSymbols
 /**
  * Figures out if the sound can be played and loads the sound.
- * @param key
+ * @param {string} key
  * @param {string} src Path to asset relative to the Engine's imagePath, including filename
  * @param {function} callback This function is called on successful load
  * @param {function} errorCallback This function is called if load is not successful
@@ -94,6 +96,20 @@ Engine.prototype.loadAssetAudio = function( key, src, callback, errorCallback ) 
     return snd;
 };
 
+//noinspection JSUnusedGlobalSymbols
+/**
+ * Store data for other file types
+ * @param {string} key
+ * @param {string} src Path to asset relative to the Engine's imagePath, including filename
+ * @param {function} callback This function is called on successful load
+ * @param {function} errorCallback This function is called if load is not successful
+ */
+Engine.prototype.loadAssetOther = function( key, src, callback, errorCallback ) {
+    $.get( this.options.dataPath + src, function( data ) {
+        callback( key, data );
+    }).fail( errorCallback );
+};
+
 /**
  * Removes the extension from a filename
  * @param {String} filename
@@ -121,7 +137,8 @@ Engine.prototype.getAsset = function( name ) {
  */
 Engine.prototype.load = function( assets, callback, progressCallback, errorCallback ) {
 
-    var assetObj = {};
+    var assetObj = {},
+        engine = this;
 
     var errors = false,
         errorCallbackAlert = function( asset ) {
@@ -153,7 +170,7 @@ Engine.prototype.load = function( assets, callback, progressCallback, errorCallb
 
         if (errors) return;
 
-        Engine.GetCurrentInstance().assets[ key ] = obj;
+        engine.assets[ key ] = obj;
         assetsRemaining--;
 
         if (progressCallback) {
@@ -162,7 +179,7 @@ Engine.prototype.load = function( assets, callback, progressCallback, errorCallb
 
         // Invoke param callback after all assets have been loaded
         if (assetsRemaining === 0 && callback) {
-            callback.apply( Engine );
+            callback.apply( engine );
         }
     };
 
@@ -170,9 +187,9 @@ Engine.prototype.load = function( assets, callback, progressCallback, errorCallb
         var assetType = Engine.getAssetType( asset );
 
         if (Engine.GetCurrentInstance().assets[ key ]) {
-            loadedCallback( key, Engine.GetCurrentInstance().assets[ key ]);
+            loadedCallback( key, engine.assets[ key ]);
         } else {
-            Engine.GetCurrentInstance()["loadAsset" + assetType](key, asset, loadedCallback,
+            engine["loadAsset" + assetType](key, asset, loadedCallback,
                 function() { errorCallbackAlert( asset ); });
         }
     });
