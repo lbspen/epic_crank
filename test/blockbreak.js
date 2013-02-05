@@ -4,7 +4,8 @@ $(function() {
         imagePath: '../test/images/'
         })
         .include('Sprites')
-        .include('Input');
+        .include('Input')
+        .include('Scenes');
 
     engine.setup();
 
@@ -60,7 +61,16 @@ $(function() {
 
         step: function( dt ) {
             var engine = Engine.GetCurrentInstance(),
-                p = this.properties;
+                p = this.properties,
+                hit = engine.getStage().collide( this );
+
+            if (hit) {
+                if (hit instanceof Engine.Paddle) {
+                    p.dy = -1;
+                } else {
+                    hit.trigger('collision', this);
+                }
+            }
 
             p.x += p.dx * p.speed * dt;
             p.y += p.dy * p.speed * dt;
@@ -76,28 +86,55 @@ $(function() {
             if (p.y < 0) {
                 p.y = 0;
                 p.dy = 1;
-            } else if (p.y > engine.height - p.height) {
-                p.dy = -1;
-                p.y = engine.height - p.height;
+            } else if (p.y > engine.height) {
+                engine.stageScene( 'game' );
             }
+        }
+    });
+
+    /**
+     * @class Engine.Block
+     */
+    Engine.Block = Engine.Sprite.extend({
+        className: "Block",
+
+        init: function( properties ) {
+            this._super(_(properties).extend({ sheet: 'block' }));
+            var block = this;
+            this.bind('collision', function( ball ) {
+                block.destroy();
+                ball.properties.dy *= -1;
+                Engine.GetCurrentInstance().getStage().trigger( 'removeBlock' );
+            });
         }
     });
 
     engine.load(['blockbreak.png', 'blockbreak.json'], function() {
         engine.compileSheets( 'blockbreak.png', 'blockbreak.json' );
+        engine.addScene( 'game', new Engine.Scene( function( stage ) {
+            stage.insertItem( new Engine.Paddle() );
+            stage.insertItem( new Engine.Ball() );
 
-        var paddle = new Engine.Paddle(),
-            ball = new Engine.Ball();
+            var blockCount = 0;
+            for (var x = 0; x < 6; x++) {
+                for (var y = 0; y < 5; y++) {
+                    stage.insertItem( new Engine.Block({
+                        x: x * 50 + 10,
+                        y: y * 30 + 10
+                    }));
+                    blockCount++;
+                }
+            }
 
-        engine.setGameLoop( function( dt ) {
-            engine.clear();
+            stage.bind( 'removeBlock', function() {
+                blockCount--;
+                if (blockCount === 0) {
+                    engine.stageScene( 'game' );
+                }
+            })
+        }));
 
-            paddle.step( dt );
-            paddle.draw();
-
-            ball.step( dt );
-            ball.draw();
-        })
+        engine.stageScene( 'game' );
     })
 
 
