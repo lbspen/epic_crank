@@ -4,7 +4,7 @@ Engine.Sprites = function() {
 
     /**
      * Single set of like-sized frames of the same sprite.
-     * @class
+     * @class Engine.SpriteSheet
      */
     Engine.SpriteSheet = Class.extend({
         className: "SpriteSheet",
@@ -113,3 +113,82 @@ Engine.prototype.compileSheets = function( imageAsset, spriteDataAsset ) {
     });
 };
 
+/**
+ * @class Engine.Sprite
+ */
+Engine.Sprite = Engine.Entity.extend({
+    className: "Sprite",
+
+    /**
+     * @constructor
+     * @param {Object} properties x, y: coordinates, z: sort order, sheet: filename,
+     * asset: filename, frame: , width: pixels,
+     */
+    init: function( properties ) {
+
+        // Set defaults and add properties from param
+        this.properties = _({
+            x: 0, y: 0, z: 0,
+            frame: 0,
+            type: 0
+        }).extend( properties || {} );
+
+        // If height and width are not provided in param, take them from the asset or sheet
+        if (( !this.properties.width || !this.properties.height )) {
+            if ( this.getAsset() ) {
+                this.properties.width = this.properties.width || this.getAsset().width;
+                this.properties.height = this.properties.height || this.getAsset().height;
+            } else if ( this.getSheet() ) {
+                this.properties.width = this.properties.width || this.getSheet().tilew;
+                this.properties.height = this.properties.height || this.getSheet().tileh;
+            }
+        }
+        this.properties.id = this.properties.id || _.uniqueId();
+    },
+
+    /**
+     * Accessor
+     * @return {Object} asset object
+     */
+    getAsset: function() {
+        return Engine.GetCurrentInstance().getAsset( this.properties.asset );
+    },
+
+    /**
+     * Accessor
+     * @return {Engine.SpriteSheet}
+     */
+    getSheet: function() {
+        //noinspection JSUnresolvedVariable
+        return Engine.GetCurrentInstance().getSheet( this.properties.sheet );
+    },
+
+    /**
+     * Draws this Entity using the param context, or if null, the Engine's context.
+     * Fires the 'draw' event.
+     * @param {CanvasRenderingContext2D=} ctx
+     */
+    draw: function( ctx ) {
+
+        if (!ctx) { ctx = Engine.GetCurrentInstance().ctx; }
+
+        var properties = this.properties;
+        if (properties.sheet) {
+            this.getSheet().draw( ctx, properties.x, properties.y,
+                properties.frame );
+        } else if ( properties.asset ) {
+            ctx.drawImage( Engine.GetCurrentInstance().getAsset( properties.asset ),
+                Math.floor( properties.x ), Math.floor( properties.y ));
+        }
+
+        this.trigger( 'draw', ctx );
+    },
+
+    /**
+     * Fires a 'step' event
+     * @param {Number} dt Time elapsed
+     */
+    step: function( dt ) {
+        this.trigger( 'step', dt );
+    }
+});

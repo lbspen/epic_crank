@@ -35,9 +35,10 @@ Engine = (function() {
      * @return {Engine}
      */
     include = function( module ) {
+        var engine = this;
         _.each( Engine.GetCurrentInstance()._normalizeArg( module ), function( m ) {
             m = Engine[ m ] || m;
-            m();
+            m.apply( engine );
         });
         return this;
     };

@@ -76,7 +76,7 @@ Engine.Input = function() {
 
                     if (inputSystem.keys[ e.keyCode ]) {
                         var actionName = inputSystem.keys[ e.keyCode ];
-                        engine.currentInputs[ actionName ] = true;
+                        engine.currentInputs[ actionName ] = false;
                         inputSystem.trigger( actionName + "Up" );
                         inputSystem.trigger( 'keyup', e.keyCode );
                     }
@@ -101,7 +101,6 @@ Engine.Input = function() {
      * @type {Engine}
      */
     this.inputSystem.engine = engineInstance;
-    this.inputSystem.keyboardControls();
 
     return this;
 };
