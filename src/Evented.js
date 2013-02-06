@@ -31,7 +31,9 @@ Engine.Evented = Class.extend({
         // If there is a target, add a reference to this object,
         // along with the event name and callback, to the target
         if (target) {
-            if (!target.binds) { target.binds = []; }
+            if (!target.binds) {
+                target.binds = [];
+            }
             target.binds.push([ this, event, callback ]);
         }
     },

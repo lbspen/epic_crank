@@ -35,8 +35,9 @@ Engine = (function() {
      * @return {Engine}
      */
     include = function( module ) {
-        var engine = this;
-        _.each( Engine.GetCurrentInstance()._normalizeArg( module ), function( m ) {
+        var engine = this,
+            moduleArray = engine._normalizeArg( module );
+        _.each( moduleArray, function( m ) {
             m = Engine[ m ] || m;
             m.apply( engine );
         });
@@ -253,7 +254,7 @@ Engine.prototype.pauseGame = function() {
 */
 Engine.prototype._normalizeArg = function( arg ) {
     if (_.isString( arg )) {
-        arg = arg.replace( /\s+/g, '').split(", ");
+        arg = arg.replace( /\s+/g, '').split(",");
     }
     if (!_.isArray( arg )) {
         arg = [ arg ];
