@@ -87,6 +87,63 @@ Engine.Animation = function() {
     };
 
     this.register( 'animation', AnimationComponent );
+
+    var ViewportComponent = {
+        className : "ViewportComponent",
+
+        added: function() {
+            this.entity.bind( 'predraw', 'predraw', this );
+            this.entity.bind( 'draw', 'postdraw', this );
+            this.x = 0; this.y = 0;
+            this.centerX = Engine.GetCurrentInstance().width / 2;
+            this.centerY = Engine.GetCurrentInstance().height / 2;
+            this.scale = 1;
+        },
+
+        extend: {
+            follow: function( sprite ) {
+                this.unbind( 'step', this.viewport );
+                this.viewport.following = sprite;
+                this.bind( 'step', 'follow', this.viewport );
+                this.viewport.follow();
+            },
+
+            unfollow: function() {
+                this.unbind( 'step', this.viewport );
+            },
+
+            centerOn: function( x, y ) {
+                this.viewport.centerOn( x, y );
+            }
+        },
+
+        follow: function() {
+            this.centerOn( this.following.properties.x + this.following.properties.width / 2,
+            this.following.properties.y + this.following.properties.height / 2 );
+        },
+
+        centerOn: function( x, y ) {
+            this.centerX = x;
+            this.centerY = y;
+            this.x = this.centerX - Engine.GetCurrentInstance().width / 2 / this.scale;
+            this.y = this.centerY - Engine.GetCurrentInstance().height / 2 / this.scale;
+        },
+
+        predraw: function() {
+            var engine = Engine.GetCurrentInstance();
+            var ctx = engine.ctx;
+            ctx.save();
+            ctx.translate( engine.width / 2, engine.height / 2 );
+            ctx.scale( this.scale, this.scale );
+            ctx.translate( - this.centerX, -this.centerY );
+        },
+
+        postdraw: function() {
+            Engine.GetCurrentInstance().ctx.restore();
+        }
+    };
+
+    this.register( 'viewport', ViewportComponent );
 };
 
 /**
@@ -115,3 +172,4 @@ Engine.prototype.addAnimations = function( sprite, animations ) {
 Engine.prototype.getAnimation = function( sprite, name ) {
     return this._animations[ sprite ] && this._animations[ sprite ][ name ];
 };
+

@@ -64,7 +64,12 @@ $(function() {
     engine.addScene('level', new Engine.Scene( function( stage ) {
         stage.insertItem( new Engine.Block({ x: 800, y: 160, z:1 }));
         stage.insertItem( new Engine.Block({ x: 550, y: 160, z:1 }));
-        stage.insertItem( new Engine.Player({ x: 100, y: 50, z:2 }));
+        var player = stage.insertItem( new Engine.Player({ x: 100, y: 50, z:2 }));
+        stage.add('viewport');
+        stage.follow( player );
+        Engine.GetCurrentInstance().inputSystem.bind( 'action', stage, function() {
+            stage.viewport.scale = stage.viewport.scale == 1 ? 0.5 : 1;
+        });
     }, { sort: true }));
 
     engine.load(['animSprites.png', 'animSprites.json','background-floor.png',
