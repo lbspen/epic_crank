@@ -55,7 +55,7 @@ Engine.Animation = function() {
                             if (anim.trigger) {
                                 entity.trigger( anim.trigger, anim.triggerData );
                             }
-                            if (anim.next) { this.p.ay(anim.next, anim.nextPriority); }
+                            if (anim.next) { this.play(anim.next, anim.nextPriority); }
                             return;
                         } else {
                             entity.trigger( 'animLoop' );

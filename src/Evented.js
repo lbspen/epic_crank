@@ -51,7 +51,9 @@ Engine.Evented = Class.extend({
             // Invoke each callback with the specified context
             for (var i = 0, len = this.listeners[event ].length; i < len; i++) {
                 var listener = this.listeners[ event ][ i ];
-                listener[ 1 ].call( listener[ 0 ], data );
+                if (listener[ 1 ].call ) {
+                    listener[ 1 ].call( listener[ 0 ], data );
+                }
             }
         }
     },

@@ -251,6 +251,8 @@ Engine.Scenes = function() {
         }
 
         this.scenes[ name ] = sceneObj;
+
+        return sceneObj;
     };
 
     /**
