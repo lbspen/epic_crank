@@ -76,7 +76,7 @@ Engine.Animation = function() {
             priority = priority || 0;
             if (name != p.animation && priority >= p.animationPriority) {
                 p.animation = name;
-                p.animationchanged = true;
+                p.animationChanged = true;
                 p.animationTime = 0;
                 p.animationFrame = 0;
                 p.animationPriority = priority;
