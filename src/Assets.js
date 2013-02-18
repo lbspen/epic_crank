@@ -186,8 +186,8 @@ Engine.prototype.load = function( assets, callback, progressCallback, errorCallb
     _.each( assetObj, function( asset, key ) {
         var assetType = Engine.getAssetType( asset );
 
-        if (Engine.GetCurrentInstance().assets[ key ]) {
-            loadedCallback( key, engine.assets[ key ]);
+        if (Engine.GetCurrentInstance().getAsset( key )) {
+            loadedCallback( key, engine.getAsset( key ));
         } else {
             engine["loadAsset" + assetType](key, asset, loadedCallback,
                 function() { errorCallbackAlert( asset ); });

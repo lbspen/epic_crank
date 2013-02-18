@@ -18,19 +18,14 @@ Engine.PackedSprites = function() {
          *  h - sprite block height, sx - start x, sy - start y, cols - number of cols / row
          */
         init: function( name, asset, options )  {
+            var assetData = Engine.GetCurrentInstance().getAsset( asset );
             _.extend( this, {
                     name: name, asset: asset,
                     w: Engine.GetCurrentInstance().getAsset( asset ).width,
                     h: Engine.GetCurrentInstance().getAsset( asset ).height,
                     tilew: 64, tileh: 64,
-                    sx: 0, sy: 0
+                    frameArray: []
                 }, options );
-
-            /**
-             * Number of columns in the spritesheet. It will be calculated if not provided.
-             * @type {Number}
-             */
-            this.cols = this.cols || Math.floor( this.w / this.tilew );
         },
 
         /**
@@ -39,7 +34,7 @@ Engine.PackedSprites = function() {
          * @return {Number}
          */
         frameX: function( frame ) {
-            return ( frame % this.cols ) * this.tilew + this.sx;
+            return this.frameArray[ frame ].sx;
         },
 
         /**
@@ -48,19 +43,14 @@ Engine.PackedSprites = function() {
          * @return {Number}
          */
         frameY: function( frame ) {
-            return Math.floor( frame / this.cols ) * this.tileh + this.sy;
-        },
-
-        draw: function( ctx, x, y, frame ) {
-            if (!ctx) { ctx = Engine.GetCurrentInstance().ctx; }
-            ctx.drawImage( Engine.GetCurrentInstance().getAsset( this.asset ),
-                this.frameX( frame ), this.frameY( frame ),
-                this.tilew, this.tileh,
-                Math.floor( x ), Math.floor( y ),
-                this.tilew, this.tileh );
+            return this.frameArray[ frame ].sy;
         }
     });
 
+    /**
+     * Replaces SpriteSheet with PackedSpriteSheet
+     * @return {Engine}
+     */
     Engine.prototype.usePackedSpriteSheet = function() {
         Engine.SpriteSheet = Engine.PackedSpriteSheet;
         Engine.prototype.createSheet = Engine.prototype.createPackedSheet;
@@ -70,8 +60,8 @@ Engine.PackedSprites = function() {
 };
 
 /**
- * Creates and adds a SpriteSheet to the collection of SpriteSheets known to the Engine
- * @param {String} name Name of the SpriteSheet
+ * Creates and adds a PackedSpriteSheet to the collection of PackedSpriteSheet known to the Engine
+ * @param {String} name Name of the PackedSpriteSheet
  * @param {String=} asset Name of the file containing the sprites
  * @param {Object=} options
  *  tilew - tile width, tileh - tile height, w - sprite block width,
@@ -94,7 +84,7 @@ Engine.prototype.createPackedSheet = function( name, asset, options ) {
 };
 
 /**
- * Creates a SpriteSheet object for each spritesheet in the JSON file named
+ * Creates a PackedSpriteSheet object for each spritesheet in the JSON file named
  * by param spriteDataAsset
  * @param {String} imageAsset Name of the file containing the sprites
  * @param {String} spriteDataAsset Name of file containing sprite data object
