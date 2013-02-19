@@ -1,10 +1,10 @@
 
 
 $(function() {
-    var engine = new Engine({
+    var engine = new Engine(/* {
         dataPath: '../test/data/',
         imagePath: '../test/images/'
-    })
+    }*/)
         .include('Input, Sprites, Scenes, Animation, PackedSprites')
         .usePackedSpriteSheet();
 
@@ -15,7 +15,7 @@ $(function() {
         className: "Player",
         init: function( properties ) {
             this._super(_(properties).extend({
-                sheet: 'man',
+                sheet: 'backpackClimber',
                 sprite: 'player',
                 rate: 1/15,
                 speed: 700
@@ -65,11 +65,11 @@ $(function() {
         });
     }, { sort: true }));
 
-    engine.load(['sprites.png', 'manSpriteFrames.json'], function() {
-        engine.compileSheets( 'sprites.png', 'manSpriteFrames.json');
+    engine.load(['backpackClimber.png', 'backpackClimber.json'], function() {
+        engine.compileSheets( 'backpackClimber.png', 'backpackClimber.json');
         engine.addAnimations( 'player', {
-            run_right: { frames:_.range(7, -1, -1), rate: 1/10 },
-            run_left: { frames:_.range(0, 8), rate: 1/10 },
+            run_right: { frames:_.range(13, -1, -1), rate: 1/10 },
+            run_left: { frames:_.range(0, 14), rate: 1/10 },
             fire: { frames: [8, 9, 10, 8], next: 'stand', rate: 1/30 },
             stand: { frames: [8], rate: 1/5 }
         });

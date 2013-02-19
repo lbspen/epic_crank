@@ -1,0 +1,14 @@
+{"{{texture.trimmedName}}": {
+  "frameArray":
+    [
+      {% for sprite in allSprites %}
+      {
+        "sx":{{sprite.frameRect.x}},
+        "sy":{{sprite.frameRect.y}},
+        "tilew":{{sprite.frameRect.width}},
+        "tileh":{{sprite.frameRect.height}}
+      }{% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    ]
+  }
+}

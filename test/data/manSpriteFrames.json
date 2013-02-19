@@ -1,95 +1,138 @@
 {"man": {
-  "tilew":47,
-  "tileh":54,
   "frameArray":
   [
     {
       "sx":0,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":47,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
+
     },
     {
       "sx":94,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":141,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":188,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":235,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":282,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":329,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":376,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":423,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":470,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":517,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":564,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":611,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":658,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":705,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":752,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":799,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":846,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":893,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":940,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     },
     {
       "sx":987,
-      "sy":87
+      "sy":87,
+      "tilew":47,
+      "tileh":54
     }
   ]}
 }

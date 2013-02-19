@@ -1,0 +1,49 @@
+<exporter version="1.0">
+    <!-- identifier of the exporter -->
+    <name>engineExporter</name>
+
+    <!-- display name of the exporter for the combo box -->
+    <displayName>EngineExporter</displayName>
+
+    <!-- description of the exporter -->
+    <description>Exporter for Javascript game engine</description>
+
+    <!-- exporter version -->
+    <version>1.0</version>
+
+    <!-- currently only one file allowed -
+more to come soon -->
+    <files>
+        <file>
+            <!-- name of this file variable -->
+            <name>spriteSheetData</name>
+
+            <!-- human readable name (for GUI) -->
+            <displayName>SpriteSheetData</displayName>
+
+            <!-- file extension for the file -->
+            <fileExtension>json</fileExtension>
+
+            <!-- name of the template file -->
+            <template>spriteSheetExporter.json</template>
+        </file>
+    </files>
+
+    <!-- target framework supports trimming -->
+    <supportsTrimming>no</supportsTrimming>
+
+    <!-- target framework supports rotated sprites -->
+    <supportsRotation>no</supportsRotation>
+
+    <!-- rotated sprites direction (cw/ccw) -->
+    <rotationDirection>cw</rotationDirection>
+
+    <!-- supports npot sizes -->
+    <supportsNPOT>yes</supportsNPOT>
+
+    <!-- supports file name stripping (remove .png etc) -->
+    <supportsTrimSpriteNames>no</supportsTrimSpriteNames>
+
+    <!-- supports texture subpath -->
+    <supportsTextureSubPath>no</supportsTextureSubPath>
+</exporter>

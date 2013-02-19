@@ -21,11 +21,25 @@ Engine.PackedSprites = function() {
             var assetData = Engine.GetCurrentInstance().getAsset( asset );
             _.extend( this, {
                     name: name, asset: asset,
-                    w: Engine.GetCurrentInstance().getAsset( asset ).width,
-                    h: Engine.GetCurrentInstance().getAsset( asset ).height,
-                    tilew: 64, tileh: 64,
+                    w: assetData.width,
+                    h: assetData.height,
                     frameArray: []
                 }, options );
+
+            var maxTileWidth = 0, maxTileHeight = 0;
+
+            for (var i = 0; i < this.frameArray.length; i++) {
+                var curFrame = this.frameArray[i];
+                if (curFrame.tilew > maxTileWidth) {
+                    maxTileWidth = curFrame.tilew;
+                }
+                if (curFrame.tileh > maxTileHeight) {
+                    maxTileHeight = curFrame.tileh;
+                }
+            }
+
+            this.tilew = maxTileWidth;
+            this.tileh = maxTileHeight;
         },
 
         /**
@@ -44,9 +58,44 @@ Engine.PackedSprites = function() {
          */
         frameY: function( frame ) {
             return this.frameArray[ frame ].sy;
+        },
+
+        /**
+         * Accessor
+         * @param {number} frame
+         * @return {number}
+         */
+        getTilew: function( frame ) {
+            return this.frameArray[ frame ].tilew;
+        },
+
+        /**
+         * Accessor
+         * @param frame
+         * @return {number}
+         */
+        getTileh: function( frame ) {
+            return this.frameArray[ frame ].tileh;
+        },
+
+        /**
+         * Draws a particular frame at the specified canvas coords
+         * @param {CanvasRenderingContext2D} ctx
+         * @param {number} x Canvas coordinate
+         * @param {number} y Canvas coordintate
+         * @param {number} frame Animation frame number
+         */
+        draw: function( ctx, x, y, frame ) {
+            if (!ctx) { ctx = Engine.GetCurrentInstance().ctx; }
+            ctx.drawImage( Engine.GetCurrentInstance().getAsset( this.asset ),
+                this.frameX( frame ), this.frameY( frame ),
+                this.getTilew( frame ), this.getTileh( frame ),
+                Math.floor( x ), Math.floor( y ),
+                this.getTilew( frame ), this.getTileh( frame ));
         }
     });
 
+    //noinspection JSUnusedGlobalSymbols
     /**
      * Replaces SpriteSheet with PackedSpriteSheet
      * @return {Engine}
