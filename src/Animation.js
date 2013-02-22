@@ -172,4 +172,3 @@ Engine.prototype.addAnimations = function( sprite, animations ) {
 Engine.prototype.getAnimation = function( sprite, name ) {
     return this._animations[ sprite ] && this._animations[ sprite ][ name ];
 };
-

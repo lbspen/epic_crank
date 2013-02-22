@@ -62,6 +62,10 @@ $(function() {
     });
 
     engine.addScene('level', new Engine.Scene( function( stage ) {
+        stage.insertItem( new Engine.Repeater({ asset: 'background-wall.png',
+                            speedX: 0.50, repeatY: false, y:-225 }));
+        stage.insertItem( new Engine.Repeater({ asset: 'background-floor.png',
+                            speedX: 1.0, repeatY: false, y: 260 }));
         stage.insertItem( new Engine.Block({ x: 800, y: 160, z:1 }));
         stage.insertItem( new Engine.Block({ x: 550, y: 160, z:1 }));
         var player = stage.insertItem( new Engine.Player({ x: 100, y: 50, z:2 }));
