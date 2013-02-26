@@ -99,7 +99,11 @@ Engine.Platformer = function() {
         },
 
         draw: function( ctx ) {
-            var p = this.p,
+            if (!this.properties) {
+                console.log('undefined');
+            }
+
+            var p = this.properties,
                 engine = Engine.GetCurrentInstance(),
                 viewport = this.parent.viewport,
                 viewW = engine.width / viewport.scale,

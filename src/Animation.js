@@ -118,8 +118,8 @@ Engine.Animation = function() {
         },
 
         follow: function() {
-            this.centerOn( this.following.properties.x + this.following.properties.width / 2,
-            this.following.properties.y + this.following.properties.height / 2 );
+            this.centerOn( this.following.properties.x + this.following.properties.xOffset + this.following.properties.width / 2,
+            this.following.properties.y + this.following.properties.yOffset + this.following.properties.height / 2 );
         },
 
         centerOn: function( x, y ) {
