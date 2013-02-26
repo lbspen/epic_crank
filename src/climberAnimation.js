@@ -2,8 +2,7 @@
 
 $(function() {
     var engine = new Engine()
-        .include('Input, Sprites, Scenes, Animation, PackedSprites')
-        .usePackedSpriteSheet();
+        .include('Input, Sprites, Scenes, Animation, PackedSprites, Platformer');
 
     engine.setup("engine", { maximize: true, maxHeight: 1000, maxWidth: 800 });
     engine.inputSystem.keyboardControls();
@@ -15,7 +14,7 @@ $(function() {
                 sheet: 'backpackClimber',
                 sprite: 'player',
                 rate: 1/15,
-                speed: 700,
+                speed: 5,
                 xOffset: 0,
                 yOffset: -150
             }));
@@ -30,7 +29,7 @@ $(function() {
 
             if (engine.currentInputs['up']) {
                 this.play('climb');
-                p.y -= p.speed * dt;
+                p.x += p.speed * dt;
             } else {
                 this.play( 'stand' );
             }
@@ -39,7 +38,14 @@ $(function() {
     });
 
     engine.addScene('level', new Engine.Scene( function( stage ) {
-        var player = stage.insertItem( new Engine.Player({ x: 100, y: 50, z:2 }));
+        var player = stage.insertItem( new Engine.Player({ x: 0, y: 0, z:2 }));
+        var tiles = stage.insertItem( new Engine.TileLayer({
+            sheet: 'block',
+            x: -100, y: -100,
+            tileW: 32, tileH: 32,
+            blockTileW: 10, blockTileH: 10,
+            dataAsset: 'level.json',
+            z: 1 }));
         stage.add('viewport');
         stage.follow( player );
         Engine.GetCurrentInstance().inputSystem.bind( 'action', stage, function() {
@@ -47,12 +53,13 @@ $(function() {
         });
     }, { sort: true }));
 
-    engine.load(['backpackClimber.png', 'backpackClimber.json'], function() {
-        engine.compileSheets( 'backpackClimber.png', 'backpackClimber.json');
+    engine.load(['backpackClimber.png', 'backpackClimber.json', 'level.json',
+        'sprites.png', 'sprites.json'],
+        function() {
+        engine.compilePackedSheets( 'backpackClimber.png', 'backpackClimber.json' );
+        engine.compileSheets( 'sprites.png', 'sprites.json' );
         engine.addAnimations( 'player', {
-            run_right: { frames:_.range(13, -1, -1), rate: 1/10 },
             climb: { frames:_.range(0, 14), rate: 1/10 },
-            fire: { frames: [8, 9, 10, 8], next: 'stand', rate: 1/30 },
             stand: { frames: [8], rate: 1/5 }
         });
         engine.stageScene( 'level' );
