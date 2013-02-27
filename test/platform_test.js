@@ -9,7 +9,6 @@ $(function() {
     engine.inputSystem.keyboardControls();
 
     engine.addScene( 'level', new Engine.Scene( function( stage ) {
-        engine.compileSheets( 'sprites.png', 'sprites.json' );
         stage.insertItem( new Engine.Repeater({ asset: 'background-wall.png',
                         speedX: 0.5, y: -225, z: 0}));
 
@@ -17,7 +16,7 @@ $(function() {
             sheet: 'block',
             x: -100, y: -100,
             tileW: 32, tileH: 32,
-            blockTileW: 10, blockTileH: 10,
+            //blockTileW: 10, blockTileH: 10,
             dataAsset: 'level.json',
             z: 1 }));
         stage.add( 'viewport' );
@@ -35,6 +34,7 @@ $(function() {
 
     engine.load([ 'background-wall.png', 'sprites.png',
         'sprites.json', 'level.json'], function() {
+        engine.compileSheets( 'sprites.png', 'sprites.json' );
         engine.stageScene( 'level' );
     });
 });

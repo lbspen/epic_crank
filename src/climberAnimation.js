@@ -60,7 +60,7 @@ $(function() {
         engine.compileSheets( 'sprites.png', 'sprites.json' );
         engine.addAnimations( 'player', {
             climb: { frames:_.range(0, 14), rate: 1/10 },
-            stand: { frames: [8], rate: 1/5 }
+            stand: { frames: [ 8 ], rate: 1/5 }
         });
         engine.stageScene( 'level' );
     });
