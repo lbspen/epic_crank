@@ -1,0 +1,35 @@
+{"building": {
+  "frameArray":
+    [
+      
+      {
+        "sx":296,
+        "sy":2,
+        "tilew":145,
+        "tileh":96
+      }, 
+      
+      {
+        "sx":149,
+        "sy":2,
+        "tilew":145,
+        "tileh":96
+      }, 
+      
+      {
+        "sx":2,
+        "sy":2,
+        "tilew":145,
+        "tileh":96
+      }, 
+      
+      {
+        "sx":443,
+        "sy":2,
+        "tilew":145,
+        "tileh":94
+      }
+      
+    ]
+  }
+}

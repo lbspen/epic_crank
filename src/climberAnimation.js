@@ -14,7 +14,7 @@ $(function() {
                 sheet: 'backpackClimber',
                 sprite: 'player',
                 rate: 1/15,
-                speed: 5,
+                speed: 25,
                 xOffset: 0,
                 yOffset: -150
             }));
@@ -40,11 +40,11 @@ $(function() {
     engine.addScene('level', new Engine.Scene( function( stage ) {
         var player = stage.insertItem( new Engine.Player({ x: 0, y: 0, z:2 }));
         var tiles = stage.insertItem( new Engine.TileLayer({
-            sheet: 'block',
+            sheet: 'building',
             x: -100, y: -100,
             tileW: 32, tileH: 32,
             blockTileW: 10, blockTileH: 10,
-            dataAsset: 'level.json',
+            dataAsset: 'levelb.json',
             z: 1 }));
         stage.add('viewport');
         stage.follow( player );
@@ -53,11 +53,11 @@ $(function() {
         });
     }, { sort: true }));
 
-    engine.load(['backpackClimber.png', 'backpackClimber.json', 'level.json',
-        'sprites.png', 'sprites.json'],
+    engine.load(['backpackClimber.png', 'backpackClimber.json', 'levelb.json',
+        'building.png', 'building.json'],
         function() {
         engine.compilePackedSheets( 'backpackClimber.png', 'backpackClimber.json' );
-        engine.compileSheets( 'sprites.png', 'sprites.json' );
+        engine.compilePackedSheets( 'building.png', 'building.json' );
         engine.addAnimations( 'player', {
             climb: { frames:_.range(0, 14), rate: 1/10 },
             stand: { frames: [ 8 ], rate: 1/5 }
