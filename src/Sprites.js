@@ -130,8 +130,7 @@ Engine.Sprite = Engine.Entity.extend({
         this.properties = _({
             x: 0, y: 0, z: 0,
             frame: 0,
-            type: 0,
-            scale: 1
+            type: 0
         }).extend( properties || {} );
 
         // If height and width are not provided in param, take them from the asset or sheet
@@ -179,9 +178,7 @@ Engine.Sprite = Engine.Entity.extend({
                 properties.frame );
         } else if ( properties.asset ) {
             ctx.drawImage( Engine.GetCurrentInstance().getAsset( properties.asset ),
-                Math.floor( properties.x ), Math.floor( properties.y ), properties.width, properties.height,
-                Math.floor( properties.x ), Math.floor( properties.y ),
-                properties.width * properties.scale, properties.height * properties.scale );
+                Math.floor( properties.x ), Math.floor( properties.y ) );
         }
 
         this.trigger( 'draw', ctx );

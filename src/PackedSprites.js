@@ -91,7 +91,7 @@ Engine.PackedSprites = function() {
                 this.frameX( frame ), this.frameY( frame ),
                 this.getTilew( frame ), this.getTileh( frame ),
                 Math.floor( x ), Math.floor( y ),
-                this.getTilew( frame ), this.getTileh( frame ));
+                this.getTilew( frame ) * this.scale, this.getTileh( frame ) * this.scale);
         }
     });
 
@@ -138,10 +138,12 @@ Engine.prototype.createPackedSheet = function( name, asset, options ) {
  * @param {String} imageAsset Name of the file containing the sprites
  * @param {String} spriteDataAsset Name of file containing sprite data object
  */
-Engine.prototype.compilePackedSheets = function( imageAsset, spriteDataAsset ) {
-    var engine = this;
-    var data = engine.getAsset( spriteDataAsset );
+Engine.prototype.compilePackedSheets = function( imageAsset, spriteDataAsset, scale ) {
+    var engine = this,
+        data = engine.getAsset( spriteDataAsset),
+        sheetScale = scale || 1;
     _(data).each( function( spriteData, name ) {
+        spriteData.scale = sheetScale;
         engine.createPackedSheet( name, imageAsset, spriteData );
     });
 };

@@ -1,7 +1,14 @@
 {"building": {
   "frameArray":
     [
-      
+
+      {
+        "sx":2,
+        "sy":2,
+        "tilew":145,
+        "tileh":96
+      },
+
       {
         "sx":296,
         "sy":2,
@@ -11,13 +18,6 @@
       
       {
         "sx":149,
-        "sy":2,
-        "tilew":145,
-        "tileh":96
-      }, 
-      
-      {
-        "sx":2,
         "sy":2,
         "tilew":145,
         "tileh":96

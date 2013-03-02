@@ -38,17 +38,19 @@ $(function() {
     });
 
     engine.addScene('level', new Engine.Scene( function( stage ) {
-        var player = stage.insertItem( new Engine.Player({ x: 0, y: 0, z:2 }));
-        var tiles = stage.insertItem( new Engine.TileLayer({
-            sheet: 'building',
-            x: -100, y: -100,
-            tileW: 32, tileH: 32,
-            blockTileW: 10, blockTileH: 10,
-            dataAsset: 'levelb.json',
-            z: 1 }));
+        var player = stage.insertItem( new Engine.Player({ x: 0, y: 0, z:2 })),
+            engine = Engine.GetCurrentInstance(),
+            sheet = engine.getSheet( 'building' ),
+            tiles = stage.insertItem( new Engine.TileLayer({
+                sheet: 'building',
+                x: 0, y: -1200,
+                tileW: sheet.tilew, tileH: sheet.tileh,
+                blockTileW: 10, blockTileH: 10,
+                dataAsset: 'levelb.json',
+                z: 1 }));
         stage.add('viewport');
         stage.follow( player );
-        Engine.GetCurrentInstance().inputSystem.bind( 'action', stage, function() {
+        engine.inputSystem.bind( 'action', stage, function() {
             stage.viewport.scale = stage.viewport.scale == 1 ? 0.5 : 1;
         });
     }, { sort: true }));
@@ -56,8 +58,8 @@ $(function() {
     engine.load(['backpackClimber.png', 'backpackClimber.json', 'levelb.json',
         'building.png', 'building.json'],
         function() {
-        engine.compilePackedSheets( 'backpackClimber.png', 'backpackClimber.json' );
-        engine.compilePackedSheets( 'building.png', 'building.json' );
+        engine.compilePackedSheets( 'backpackClimber.png', 'backpackClimber.json', 0.5 );
+        engine.compilePackedSheets( 'building.png', 'building.json', 1.5 );
         engine.addAnimations( 'player', {
             climb: { frames:_.range(0, 14), rate: 1/10 },
             stand: { frames: [ 8 ], rate: 1/5 }

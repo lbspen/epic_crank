@@ -43,8 +43,8 @@ Engine.Platformer = function() {
                     for (var x = 0; x < p.cols; x++) {
                         if (tiles[ y ][ x ]) {
                             sheet.draw( ctx,
-                                x * p.tileW + p.x,
-                                y * p.tileH + p.y,
+                                x * p.tileW * sheet.scale + p.x,
+                                y * p.tileH * sheet.scale + p.y,
                                 tiles[ y ][ x ]);
                         }
                     }
