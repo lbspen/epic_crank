@@ -27,14 +27,20 @@ $(function() {
         step: function( dt ) {
             var p = this.properties;
 
-            if (engine.currentInputs['up']) {
-                this.play('climb');
-                p.y -= p.speed * dt;
-            } else if (engine.currentInputs['down']) {
+            if (engine.currentInputs['down']) {
                 this.play('climb_down');
                 p.y += p.speed * dt;
+            } else if (engine.currentInputs['left']) {
+                this.play('climb');
+                p.y -= p.speed * dt;
+                p.x -= p.speed * dt;
+            } else if (engine.currentInputs['right']) {
+                this.play('climb');
+                p.y -= p.speed * dt;
+                p.x += p.speed * dt;
             } else {
-                this.play( 'stand' );
+                this.play('climb');
+                p.y -= p.speed * dt;
             }
             this._super( dt );
         }

@@ -1,5 +1,3 @@
-// TODO: Generated tiles
-// TODO: Continuous up
 // TODO: Move left and right
 // TODO: Add physics
 // TODO: Running into obstacle causes game to stop
@@ -10,3 +8,4 @@
 // TODO: Countdown to start
 // TODO: Start at the bottom
 // TODO: Fall animation
+// TODO: Jump over obstacle
