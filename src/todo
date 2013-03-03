@@ -1,4 +1,3 @@
-// TODO: Map loop
 // TODO: Generated tiles
 // TODO: Continuous up
 // TODO: Move left and right
@@ -9,3 +8,5 @@
 // TODO: Fix transparency in tiles
 // TODO: Center building
 // TODO: Countdown to start
+// TODO: Start at the bottom
+// TODO: Fall animation

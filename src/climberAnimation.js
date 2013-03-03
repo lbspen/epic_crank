@@ -2,7 +2,7 @@
 
 $(function() {
     var engine = new Engine()
-        .include('Input, Sprites, Scenes, Animation, PackedSprites, Platformer');
+        .include('Input, Sprites, Scenes, Animation, PackedSprites, Platformer, EndlessPlatformer');
 
     engine.setup("engine", { maximize: true, maxHeight: 1000, maxWidth: 800 });
     engine.inputSystem.keyboardControls();
@@ -44,7 +44,7 @@ $(function() {
         var player = stage.insertItem( new Engine.Player({ x: 0, y: 0, z:2 })),
             engine = Engine.GetCurrentInstance(),
             sheet = engine.getSheet( 'building' ),
-            tiles = stage.insertItem( new Engine.TileLayer({
+            tiles = stage.insertItem( new Engine.EndlessTileLayer({
                 sheet: 'building',
                 x: -525, y: -900,
                 tileW: sheet.tilew, tileH: sheet.tileh,
