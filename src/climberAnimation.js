@@ -14,7 +14,7 @@ $(function() {
                 sheet: 'backpackClimber',
                 sprite: 'player',
                 rate: 1/15,
-                speed: 25,
+                speed: 100,
                 xOffset: 0,
                 yOffset: -150
             }));
@@ -29,7 +29,10 @@ $(function() {
 
             if (engine.currentInputs['up']) {
                 this.play('climb');
-                p.x += p.speed * dt;
+                p.y -= p.speed * dt;
+            } else if (engine.currentInputs['down']) {
+                this.play('climb_down');
+                p.y += p.speed * dt;
             } else {
                 this.play( 'stand' );
             }
@@ -43,8 +46,9 @@ $(function() {
             sheet = engine.getSheet( 'building' ),
             tiles = stage.insertItem( new Engine.TileLayer({
                 sheet: 'building',
-                x: 0, y: -1200,
+                x: -525, y: -900,
                 tileW: sheet.tilew, tileH: sheet.tileh,
+                scale: sheet.scale,
                 blockTileW: 10, blockTileH: 10,
                 dataAsset: 'levelb.json',
                 z: 1 }));
@@ -62,6 +66,7 @@ $(function() {
         engine.compilePackedSheets( 'building.png', 'building.json', 1.5 );
         engine.addAnimations( 'player', {
             climb: { frames:_.range(0, 14), rate: 1/10 },
+            climb_down: { frames:_.range(13, -1, -1), rate: 1/10 },
             stand: { frames: [ 8 ], rate: 1/5 }
         });
         engine.stageScene( 'level' );
