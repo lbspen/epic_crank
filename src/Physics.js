@@ -120,6 +120,8 @@ Engine.Physics = function() {
 
     var PhysicsComponent = {
 
+        className: 'PhysicsComponent',
+
         /**
          * This method is called when this component is added to an entity
          */
@@ -138,19 +140,28 @@ Engine.Physics = function() {
          * @param {number} x
          * @param {number} y
          */
-        position: function( x, y ) {
+        setPosition: function( x, y ) {
             var stage = this.entity.parent;
             this._body.SetAwake( true );
             this._body.SetPosition( new b2d.Vec( x / stage.world.scale,
                                             y / stage.world.scale ));
         },
 
-        /**
-         * Rotates the associated entity by the specified angle
-         * @param {number} angle
-         */
-        angle: function( angle ) {
-            this._body.SetAngle( angle / 180 * Math.PI );
+        setVelocity: function( velocity ) {
+            var stage = this.entity.parent;
+            this._body.SetAwake( true );
+            this._body.SetLinearVelocity( new b2d.Vec( velocity.x / stage.world.scale,
+                velocity.y / stage.world.scale ));
+        },
+
+        climb: function( velocity ) {
+            var stage = this.entity.parent,
+                g = stage.world._gravity.GetNegative(),
+                mass = this._body.GetMass();
+
+            g.Multiply( mass );
+            this._body.ApplyForce( g, this._body.GetLocalCenter());
+            this.setVelocity( velocity );
         },
 
         inserted: function() {
@@ -158,7 +169,6 @@ Engine.Physics = function() {
                 stage = entity.parent,
                 scale = stage.world.scale,
                 p = entity.properties,
-                options = entityDefaults,
                 def = this._def = new b2d.BodyDef,
                 fixtureDef = this._fixture = new b2d.FixtureDef;
 
@@ -171,14 +181,14 @@ Engine.Physics = function() {
 
             this._body = stage.world.createBody( def );
             this._body.SetUserData( entity );
-            fixtureDef.density = p.density || options.density;
-            fixtureDef.friction = p.friction || options.friction;
-            fixtureDef.restitution = p.restitution || options.restitution;
+            fixtureDef.density = p.density || entityDefaults.density;
+            fixtureDef.friction = p.friction || entityDefaults.friction;
+            fixtureDef.restitution = p.restitution || entityDefaults.restitution;
 
             switch (p.shape) {
                 case 'block':
                     fixtureDef.shape = new b2d.PolygonShape;
-                    fixtureDef.shape.SetAsBox( p.w/2/scale, p.h/2/scale );
+                    fixtureDef.shape.SetAsBox( p.width/2/scale, p.height/2/scale );
                     break;
                 case 'circle':
                     fixtureDef.shape = new b2d.CircleShape( p.r/scale );
