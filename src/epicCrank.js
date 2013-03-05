@@ -58,6 +58,7 @@ $(function() {
 
     engine.addScene('level', new Engine.Scene( function( stage ) {
         stage.add( 'world' );
+        stage.world.toggleDebugDraw();
 
         var player = stage.insertItem( new Engine.Player({ x: 0, y: 0, z:2 })),
             engine = Engine.GetCurrentInstance(),
@@ -80,6 +81,7 @@ $(function() {
 
         player.physics.climb( 0, this.VERT_VELOCITY );
 
+
     }, { sort: true }));
 
     engine.load(['backpackClimber.png', 'backpackClimber.json', 'levelb.json',
@@ -94,4 +96,6 @@ $(function() {
         });
         engine.stageScene( 'level' );
     });
+
+
 });

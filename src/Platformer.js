@@ -20,8 +20,6 @@ Engine.Platformer = function() {
             this.blocks = [];
             this.properties.blockW = this.properties.tileW * this.properties.blockTileW * this.properties.scale;
             this.properties.blockH = this.properties.tileH * this.properties.blockTileH * this.properties.scale;
-            this.colBounds = {};
-            this.directions = [ 'top', 'left', 'right', 'bottom' ];
         },
 
         load: function( dataAsset ) {

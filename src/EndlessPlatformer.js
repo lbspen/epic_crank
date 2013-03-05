@@ -29,7 +29,18 @@ Engine.EndlessPlatformer = function() {
                             // Tile 2 - enemy [.5, .7), Tile 3 - normal - [.7, 1)
                             var rand = Engine.lcRandom.real(),
                                 tileFrame = 3;
-                            if ((0 <= rand) && (rand < .1)) { tileFrame = 0; }
+                            if ((0 <= rand) && (rand < .1)) {
+                                tileFrame = 0;
+                                var obstacleTile = this.parent.insertItem( new Engine.Sprite({
+                                    shape: 'block', type: 'static',
+                                    x: x * p.tileW * sheet.scale, y: y * p.tileH * sheet.scale,
+                                    width: p.tileW, height:p.tileH
+                                }) );
+                                obstacleTile.add( 'physics' );
+                                obstacleTile.bind( 'contact', function( sprite ) {
+                                    console.log( 'Contact!' );
+                                })
+                            }
                             else if ((.1 <= rand) && (rand < .5)) { tileFrame = 1; }
                             else if ((.5 <= rand) && (rand < .7)) { tileFrame = 2; }
                             sheet.draw( ctx,

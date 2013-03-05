@@ -10,7 +10,8 @@ Engine.Physics = function() {
         Fixture: Box2D.Dynamics.b2Fixture,
         PolygonShape: Box2D.Collision.Shapes.b2PolygonShape,
         CircleShape: Box2D.Collision.Shapes.b2CircleShape,
-        Listener: Box2D.Dynamics.b2ContactListener
+        Listener: Box2D.Dynamics.b2ContactListener,
+        DebugDraw: Box2D.Dynamics.b2DebugDraw
     };
 
     var defaultOptions = Engine.PhysicsDefaults = {
@@ -107,6 +108,16 @@ Engine.Physics = function() {
             this._world.Step( dt,
                 this.options.velocityIterations,
                 this.options.positionIterations );
+        },
+
+        toggleDebugDraw: function() {
+            this._debugDraw = new b2d.DebugDraw();
+            this._debugDraw.SetSprite( Engine.GetCurrentInstance().ctx );
+            this._debugDraw.SetDrawScale( this.scale );
+            this._debugDraw.SetFillAlpha( 0.5 );
+            this._debugDraw.SetLineThickness( 1.0 );
+            this._debugDraw.SetFlags( b2d.DebugDraw.e_shapeBit  );
+            this._world.SetDebugDraw( this._debugDraw );
         }
     };
 
@@ -220,8 +231,10 @@ Engine.Physics = function() {
             p.x = pos.x * stage.world.scale;
             p.y = pos.y * stage.world.scale;
             p.angle = angle / Math.PI * 180;
+            stage.world._world.DrawDebugData();
         }
-    };
+
+};
 
     this.register( 'physics', PhysicsComponent );
 };
